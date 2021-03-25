@@ -8,7 +8,7 @@ from torchvision.datasets import DatasetFolder
 from torchvision.transforms import ToPILImage, Compose, ToTensor
 
 import config
-
+from utils import split_path
 
 def make_dataset(root: str, files: List) -> List[str]:
     images = []
@@ -44,19 +44,19 @@ class ImageLoader(DatasetFolder):
 
         for root, dirs, files in os.walk(root_path):
             if config.INPUT_FOLDER_NAME in root and config.AMP_FOLDER_NAME in root:
-                folder_name = root.split('\\')[-3]
+                folder_name = split_path(root)[-3]
                 folders.add(folder_name)
                 input_images_amp[folder_name] = make_dataset(root, files)
             if config.INPUT_FOLDER_NAME in root and config.PHASE_FOLDER_NAME in root and phase:
-                folder_name = root.split('\\')[-3]
+                folder_name = split_path(root)[-3]
                 folders.add(folder_name)
                 input_images_phase[folder_name] = make_dataset(root, files)
             if config.REFERENCE_FOLDER_NAME in root and config.AMP_FOLDER_NAME in root and training:
-                folder_name = root.split('\\')[-3]
+                folder_name = split_path(root)[-3]
                 folders.add(folder_name)
                 reference_images_amp[folder_name] = make_dataset(root, files)
             if config.REFERENCE_FOLDER_NAME in root and config.PHASE_FOLDER_NAME in root and phase and training:
-                folder_name = root.split('\\')[-3]
+                folder_name = split_path(root)[-3]
                 folders.add(folder_name)
                 reference_images_phase[folder_name] = make_dataset(root, files)
 

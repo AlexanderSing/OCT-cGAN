@@ -5,7 +5,7 @@ from torchvision import transforms
 
 SEED = 999
 
-DATASETS_PATH = "All_Synthetic"
+DATASETS_PATH = "dataset"
 INPUT_FOLDER_NAME = "Gaped"
 REFERENCE_FOLDER_NAME = "Full"
 
@@ -14,7 +14,7 @@ VALSET_PATH = ""
 AMP_FOLDER_NAME = "amp"
 PHASE_FOLDER_NAME = "phase"
 
-GPUS = 1
+GPUS = 0
 
 TRAIN_FRACTION = 0.95
 

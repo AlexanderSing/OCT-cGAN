@@ -1,3 +1,4 @@
+import os
 import random
 from typing import Tuple
 
@@ -11,14 +12,13 @@ from pytorch_fid.inception import InceptionV3
 def tensor2im(input_image: torch.Tensor, imtype: torch.Type = torch.uint8):
     image_tensor = input_image.data[0]
 
-    image_tensor = image_tensor[0].expand(3, -1, -1)# grayscale to RGB
+    image_tensor = image_tensor[0].expand(3, -1, -1)  # grayscale to RGB
     image_tensor = image_tensor.clamp(min=0, max=1)
     image_tensor = image_tensor * 255.0  # post-processing: scaling
     return image_tensor.type(imtype)
 
 
 def fid(forged_images: torch.Tensor, reference_images: torch.Tensor, feature_dimensionality: int, device: torch.device):
-
     inception = InceptionV3([InceptionV3.BLOCK_INDEX_BY_DIM[feature_dimensionality]]).to(device)
     inception.eval()
 
@@ -26,10 +26,10 @@ def fid(forged_images: torch.Tensor, reference_images: torch.Tensor, feature_dim
     reference_pred = np.empty((reference_images.shape[0], feature_dimensionality))
 
     for i in range(forged_images.shape[0]):
-        forged_image = forged_images[i:i+1]
+        forged_image = forged_images[i:i + 1]
         forged_image = forged_image.to(device=device, dtype=torch.float)
         forged_image /= 255
-        reference_image = reference_images[i:i+1]
+        reference_image = reference_images[i:i + 1]
         reference_image = reference_image.to(device=device, dtype=torch.float)
         reference_image /= 255
 
@@ -85,6 +85,23 @@ def get_loss_function(name: str) -> nn.Module:
         return nn.MSELoss()
     elif name == 'L1':
         return nn.L1Loss()
+
+
+def split_path(path: str) -> list:
+    all_parts = []
+    while True:
+        parts = os.path.split(path)
+        if parts[0] == path:
+            all_parts.insert(0, parts[0])
+            break
+        elif parts[1] == path:
+            all_parts.insert(0, parts[1])
+            break
+        else:
+            path = parts[0]
+            all_parts.insert(0, parts[1])
+
+    return all_parts
 
 
 class ImagePool:
