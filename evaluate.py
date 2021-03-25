@@ -75,7 +75,13 @@ if __name__ == '__main__':
     parser.add_argument('forged_path')
     parser.add_argument('reference_path')
     parser.add_argument('input_path')
+    parser.add_argument('--gpu', dest='use_gpu', action='store_const', const=True, default=False)
     args = parser.parse_args()
+
+    if args.use_gpu:
+        device = torch.device('cuda:0')
+    else:
+        device = torch.device('cpu')
 
     forged_paths = []
     reference_paths = []
@@ -101,16 +107,16 @@ if __name__ == '__main__':
     reference_tensor = torch.cat(reference, 0).reshape(len(inputs), 1, inputs[0].shape[1], inputs[0].shape[2])
     inputs_tensor = torch.cat(inputs, 0).reshape((len(inputs), 1, inputs[0].shape[1], inputs[0].shape[2]))
 
-    forged_tensor = forged_tensor.expand(-1, 3, -1, -1).clone().to('cuda:0')
-    reference_tensor = reference_tensor.expand(-1, 3, -1, -1).clone().to('cuda:0')
-    inputs_tensor = inputs_tensor.expand(-1, 3, -1, -1).clone().to('cuda:0')
+    forged_tensor = forged_tensor.expand(-1, 3, -1, -1).clone().to(device)
+    reference_tensor = reference_tensor.expand(-1, 3, -1, -1).clone().to(device)
+    inputs_tensor = inputs_tensor.expand(-1, 3, -1, -1).clone().to(device)
 
     forged_tensor *= 255
     reference_tensor *= 255
     inputs_tensor *= 255
 
-    fid_forged = fid(forged_tensor, reference_tensor, 192, torch.device('cuda:0'))
-    fid_input = fid(inputs_tensor, reference_tensor, 192, torch.device('cuda:0'))
+    fid_forged = fid(forged_tensor, reference_tensor, 192, torch.device(device))
+    fid_input = fid(inputs_tensor, reference_tensor, 192, torch.device(device))
 
     print(f"FID Score input: {fid_input}")
     print(f"FID Score forged: {fid_forged}")
