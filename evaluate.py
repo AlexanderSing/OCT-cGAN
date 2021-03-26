@@ -75,6 +75,7 @@ if __name__ == '__main__':
     parser.add_argument('forged_path')
     parser.add_argument('reference_path')
     parser.add_argument('input_path')
+    parser.add_argument('title')
     parser.add_argument('--gpu', dest='use_gpu', action='store_const', const=True, default=False)
     args = parser.parse_args()
 
@@ -149,8 +150,8 @@ if __name__ == '__main__':
     psnrs_input_df = pd.DataFrame(psnrs_input)
     psnrs_forged_df = pd.DataFrame(psnrs_forged)
 
-    plot_comparison(ssims_input_df, psnrs_input_df, ssims_forged_df, psnrs_forged_df, "Micro Beads")
-    plot_individual(ssims_input_df, psnrs_input_df, ssims_forged_df, psnrs_forged_df, "Micro Beads")
+    plot_comparison(ssims_input_df, psnrs_input_df, ssims_forged_df, psnrs_forged_df, args.title)
+    plot_individual(ssims_input_df, psnrs_input_df, ssims_forged_df, psnrs_forged_df, args.title)
     print("SSIM input statistics:")
     print(ssims_input_df["value"].describe())
     print("SSIM forged statistics:")
