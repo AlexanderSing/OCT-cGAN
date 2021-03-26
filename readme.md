@@ -43,17 +43,17 @@ The evaluate.py script is used for calculating the metrics (FID, SSIM & PSNR) be
 
 # References
 
-Network Architecture & part of loss function:
+#### Network Architecture & part of loss function:
 
 P. Isola, J. Zhu, T. Zhou, and A. A. Efros, “Image-to-image translation with conditional adversarial networks,” CoRR.
 https://arxiv.org/abs/1611.07004v2 (2016).
 
-Perceptual loss:
+#### Perceptual loss:
 
 C. Wang, C. Xu, C. Wang, and D. Tao, “Perceptual adver-sarial networks for image-to-image transformation,” IEEE
 Transactions on Image Process. 27, 4066–4079 https://arxiv.org/abs/1706.09138 (2018).
 
-Frechét Inception Distance:
+#### Frechét Inception Distance:
 
 M. Heusel, H. Ramsauer, T. Unterthiner, B. Nessler, andS. Hochreiter, “Gans trained by a two time-scale updaterule
 converge to a local nash equilibrium,” Adv. Neural Inf.Process. Syst. 30, 6626–6637 https://arxiv.org/abs/1706.08500 
