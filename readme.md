@@ -56,7 +56,7 @@ Transactions on Image Process. 27, 4066–4079 https://arxiv.org/abs/1706.09138 
 Frechét Inception Distance:
 
 M. Heusel, H. Ramsauer, T. Unterthiner, B. Nessler, andS. Hochreiter, “Gans trained by a two time-scale updaterule
-converge to a local nash equilibrium,” Adv. Neural Inf.Process. Syst. 30, 6626–6637 https://arxiv.org/abs/1706.08500 (
-2017).
+converge to a local nash equilibrium,” Adv. Neural Inf.Process. Syst. 30, 6626–6637 https://arxiv.org/abs/1706.08500 
+(2017).
 
 and its PyTorch implementation: https://github.com/mseitzer/pytorch-fid
